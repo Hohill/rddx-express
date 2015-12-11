@@ -1,0 +1,33 @@
+{
+  "name": "rddx-express",
+  "version": "0.0.1",
+  "description": "Express.js base project for REPL drive development",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -t 5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leizongmin/rddx-express.git"
+  },
+  "keywords": [
+    "repl",
+    "express",
+    "hotreload"
+  ],
+  "author": "Zongmin Lei <leizongmin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leizongmin/rddx-express/issues"
+  },
+  "homepage": "https://github.com/leizongmin/rddx-express#readme",
+  "engines": {
+    "node": ">= 4.0.0"
+  },
+  "dependencies": {
+    "rddx-mod": "0.0.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4"
+  }
+}
