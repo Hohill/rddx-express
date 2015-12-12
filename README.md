@@ -25,19 +25,9 @@ const ejs = require('ejs');
 project.set('path', __dirname);
 project.set('port', 3000);
 
-project.router('default', './routes/index.js');
-project.router('admin', './routes/admin.js');
-
-project.init((router) => {
-  let app = express();
-  app.set('views', path.resolve(__dirname, 'views'));
-  app.set('view engine', 'html');
-  app.engine('html', ejs.__express);
-  app.use('/assets', serveStatic(path.resolve(__dirname, 'assets')));
-  app.use('/admin', router('admin'));
-  app.use('/', router('default'));
-  return app;
-});
+project.register('router.default', './routes/index.js');
+project.register('router.admin', './routes/admin.js');
+project.register('init', './init.js');
 
 project.on('reload', file => {
   console.log(`reload file: ${file}`);
@@ -49,6 +39,23 @@ project.on('init', app => {
 project.listen(err => {
   console.log(`start failed: ${err}`);
 });
+```
+
+init express file `init.js`:
+
+```javascript
+module.exports = function (project) {
+
+  let app = express();
+  app.set('views', path.resolve(__dirname, 'views'));
+  app.set('view engine', 'html');
+  app.engine('html', ejs.__express);
+  app.use('/assets', serveStatic(path.resolve(__dirname, 'assets')));
+  app.use('/admin', project.router('admin'));
+  app.use('/', project.router('default'));
+  return app;
+
+};
 ```
 
 register routes file `routes/index.js`:
