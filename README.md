@@ -3,6 +3,8 @@ Express.js base project  for REPL drive development
 
 ## Installation
 
+For Node v4.0.0 or above:
+
 ```bash
 $ npm install rddx-express express@4.x --save
 ```
@@ -11,8 +13,73 @@ Notes: `rddx-express` doesn't include `express` module, so you need to install i
 
 ## Usage
 
-```javascript
+main file `app.js`:
 
+```javascript
+const path = require('path');
+const project = require('rddx-express');
+const express = require('express');
+const serveStatic = require('serve-static');
+const ejs = require('ejs');
+
+project.set('path', __dirname);
+project.set('port', 3000);
+
+project.router('default', './routes/index.js');
+project.router('admin', './routes/admin.js');
+
+project.init((router) => {
+  let app = express();
+  app.set('views', path.resolve(__dirname, 'views'));
+  app.set('view engine', 'html');
+  app.engine('html', ejs.__express);
+  app.use('/assets', serveStatic(path.resolve(__dirname, 'assets')));
+  app.use('/admin', router('admin'));
+  app.use('/', router('default'));
+  return app;
+});
+
+project.on('reload', file => {
+  console.log(`reload file: ${file}`);
+});
+project.on('init', app => {
+  console.log(`inited`);
+});
+
+project.listen(err => {
+  console.log(`start failed: ${err}`);
+});
+```
+
+register routes file `routes/index.js`:
+
+```javascript
+module.exports = function (project, mod, router) {
+
+  mod.register('home', './home.js');
+  mod.register('user', './user.js');
+
+  router.get('/', mod('home').index);
+  router.get('/list', mod('home').list);
+
+  router.get('/user', mod('user').index);
+  router.get('/signup', mod('user').signup);
+  router.get('/login', mod('user').login);
+};
+```
+
+routes handle file `routes/home.js`:
+
+```javascript
+const project = require('rddx-express');
+
+exports.index = function (req, res, next) {
+  res.render('index');
+};
+
+exports.list = function (req, res, next) {
+  res.render('list');
+};
 ```
 
 ## License
