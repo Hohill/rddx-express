@@ -2,7 +2,7 @@
 
 module.exports = function (project, mod, router) {
 
-  mod.register('home', './home.js');
+  mod.register('home', './routes/home.js');
 
   router.get('/', mod('home').index);
   router.get('/list', mod('home').list);
