@@ -16,11 +16,10 @@ Notes: `rddx-express` doesn't include `express` module, so you need to install i
 main file `app.js`:
 
 ```javascript
+'use strict';
+
 const path = require('path');
 const project = require('rddx-express');
-const express = require('express');
-const serveStatic = require('serve-static');
-const ejs = require('ejs');
 
 project.set('path', __dirname);
 project.set('port', 3000);
@@ -44,6 +43,12 @@ project.listen(err => {
 init express file `init.js`:
 
 ```javascript
+'use strict';
+const path = require('path');
+const express = require('express');
+const serveStatic = require('serve-static');
+const ejs = require('ejs');
+
 module.exports = function (project) {
 
   let app = express();
@@ -61,6 +66,8 @@ module.exports = function (project) {
 register routes file `routes/index.js`:
 
 ```javascript
+'use strict';
+
 module.exports = function (project, mod, router) {
 
   mod.register('home', './home.js');
@@ -78,6 +85,8 @@ module.exports = function (project, mod, router) {
 routes handle file `routes/home.js`:
 
 ```javascript
+'use strict';
+
 const project = require('rddx-express');
 
 exports.index = function (req, res, next) {
