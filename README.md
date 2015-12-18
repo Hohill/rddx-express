@@ -69,7 +69,10 @@ module.exports = function (project) {
   app.engine('html', ejs.__express);
   app.use('/assets', serveStatic(path.resolve(__dirname, 'assets')));
   app.use('/admin', project.router('admin'));
+
+  // register router
   app.use('/', project.router('default'));
+  // notes: don't use such `app.get()` method to register router
 
   // return an express instance
   return app;
