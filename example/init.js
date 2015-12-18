@@ -14,6 +14,7 @@ module.exports = function (project) {
   app.engine('html', ejs.__express);
   app.use('/assets', serveStatic(path.resolve(__dirname, 'assets')));
   app.use('/', project.router('default'));
+  app.use('/admin', project.router('admin'));
 
   return app;
 

@@ -124,6 +124,18 @@ $ node app.js
 
 Notes: when the **(support hot reload)** file has been changed, and option `mod reload` is set to `true`, will automatically reload it.
 
+For file `init.js`, generally does not support hot reload. If you want to make some change, for example, register a new router:
+
+first step, create a new file `routes/admin.js` (like above file `routes/index.js`);
+
+the next, just type you register code in REPL:
+
+```javascript
+[rddx-express]> project.register('router.admin', './routes/admin.js');
+```
+
+Notes: in REPL, you can use variable name `$project` to access the project instance.
+
 ### Production deploy
 
 delete the below lines in file `app.js`:
