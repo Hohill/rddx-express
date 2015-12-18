@@ -1,5 +1,5 @@
 # rddx-express
-Express.js base project  for REPL drive development
+Express.js base project for REPL drive development
 
 ## Installation
 
@@ -9,7 +9,7 @@ Express.js base project  for REPL drive development
 $ npm install rddx-express express@4.x --save
 ```
 
-Notes: `rddx-express` doesn't include `express` module, so you need to install it.
+**Notes: `rddx-express` doesn't include `express` module, so you need to install it by youself.**
 
 ## Usage
 
@@ -26,15 +26,17 @@ const project = require('rddx-express');
 project.set('path', __dirname);
 project.set('port', 3000);
 
-// development mod
+// development mode
 project.set('mod reload', true);         // enable hot reload
 project.set('uncaught exception', true); // catch uncaughtException
 project.set('repl', true);               // start a REPL
 
+// register module
+project.register('init', './init.js');
 project.register('router.default', './routes/index.js');
 project.register('router.admin', './routes/admin.js');
-project.register('init', './init.js');
 
+// events
 project.on('reload', file => {
   console.log(`reload file: ${file}`);
 });
@@ -42,12 +44,13 @@ project.on('init', app => {
   console.log(`inited`);
 });
 
+// start listening
 project.listen(err => {
   console.log(`start failed: ${err}`);
 });
 ```
 
-init express file `init.js` **hot reload**:
+init express file `init.js` **(support hot reload)**:
 
 ```javascript
 'use strict';
@@ -59,24 +62,28 @@ const ejs = require('ejs');
 module.exports = function (project) {
 
   let app = express();
+
   app.set('views', path.resolve(__dirname, 'views'));
   app.set('view engine', 'html');
   app.engine('html', ejs.__express);
   app.use('/assets', serveStatic(path.resolve(__dirname, 'assets')));
   app.use('/admin', project.router('admin'));
   app.use('/', project.router('default'));
+
+  // return an express instance
   return app;
 
 };
 ```
 
-register routes file `routes/index.js` **hot reload**:
+register routes file `routes/index.js` **(support hot reload)**:
 
 ```javascript
 'use strict';
 
 module.exports = function (project, mod, router) {
 
+  // register hot reload module
   mod.register('home', './home.js');
   mod.register('user', './user.js');
 
@@ -90,7 +97,7 @@ module.exports = function (project, mod, router) {
 };
 ```
 
-routes handle file `routes/home.js` **hot reload**:
+routes handle file `routes/home.js` **(support hot reload)**:
 
 ```javascript
 'use strict';
@@ -108,13 +115,13 @@ exports.list = function (req, res, next) {
 
 ### Start development
 
-launch:
+run `app.js` to start:
 
 ```bash
 $ node app.js
 ```
 
-Notes: when the **hot reload** file has been changed, and `mod reload` is set to `true`, will automatically reload.
+Notes: when the **(support hot reload)** file has been changed, and `mod reload` is set to `true`, will automatically reload.
 
 ### Production deploy
 
