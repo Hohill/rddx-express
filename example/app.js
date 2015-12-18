@@ -16,6 +16,7 @@ project.set('uncaught exception', true);
 
 project.register('init', './init.js');
 project.register('router.default', './routes/index.js');
+project.register('router.admin', './routes/admin.js');
 
 project.listen(err => {
   if (err) {
