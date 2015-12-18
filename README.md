@@ -13,7 +13,9 @@ Notes: `rddx-express` doesn't include `express` module, so you need to install i
 
 ## Usage
 
-main file `app.js`:
+### Example files
+
+launch file `app.js`:
 
 ```javascript
 'use strict';
@@ -23,6 +25,10 @@ const project = require('rddx-express');
 
 project.set('path', __dirname);
 project.set('port', 3000);
+
+// development mod
+project.set('mod reload', true);         // enable hot reload
+project.set('uncaught exception', true); // catch uncaughtException
 
 project.register('router.default', './routes/index.js');
 project.register('router.admin', './routes/admin.js');
@@ -40,7 +46,7 @@ project.listen(err => {
 });
 ```
 
-init express file `init.js`:
+init express file `init.js` **hot reload**:
 
 ```javascript
 'use strict';
@@ -63,7 +69,7 @@ module.exports = function (project) {
 };
 ```
 
-register routes file `routes/index.js`:
+register routes file `routes/index.js` **hot reload**:
 
 ```javascript
 'use strict';
@@ -79,10 +85,11 @@ module.exports = function (project, mod, router) {
   router.get('/user', mod('user').index);
   router.get('/signup', mod('user').signup);
   router.get('/login', mod('user').login);
+
 };
 ```
 
-routes handle file `routes/home.js`:
+routes handle file `routes/home.js` **hot reload**:
 
 ```javascript
 'use strict';
@@ -96,6 +103,26 @@ exports.index = function (req, res, next) {
 exports.list = function (req, res, next) {
   res.render('list');
 };
+```
+
+### Start development
+
+launch:
+
+```bash
+$ node app.js
+```
+
+Notes: when the **hot reload** file has been changed, and `mod reload` is set to `true`, will automatically reload.
+
+### Production deploy
+
+delete the below lines in file `app.js`:
+
+```javascript
+// development mod
+project.set('mod reload', true);         // enable hot reload
+project.set('uncaught exception', true); // catch uncaughtException
 ```
 
 ## License
