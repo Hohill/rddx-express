@@ -3,7 +3,7 @@ Express.js base project  for REPL drive development
 
 ## Installation
 
-For Node v4.0.0 or above:
+**For Node v4.0.0 or above**:
 
 ```bash
 $ npm install rddx-express express@4.x --save
@@ -29,6 +29,7 @@ project.set('port', 3000);
 // development mod
 project.set('mod reload', true);         // enable hot reload
 project.set('uncaught exception', true); // catch uncaughtException
+project.set('repl', true);               // start a REPL
 
 project.register('router.default', './routes/index.js');
 project.register('router.admin', './routes/admin.js');
@@ -123,6 +124,7 @@ delete the below lines in file `app.js`:
 // development mod
 project.set('mod reload', true);         // enable hot reload
 project.set('uncaught exception', true); // catch uncaughtException
+project.set('repl', true);               // start a REPL
 ```
 
 ## License

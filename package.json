@@ -27,7 +27,7 @@
   "dependencies": {
     "debug": "^2.2.0",
     "lei-utils": "^1.1.0",
-    "rddx-mod": "0.0.5"
+    "rddx-mod": "0.0.6"
   },
   "devDependencies": {
     "mocha": "^2.3.4"

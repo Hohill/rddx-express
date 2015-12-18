@@ -13,6 +13,7 @@ project.set('path', __dirname);
 project.set('port', 3002);
 project.set('mod reload', true);
 project.set('uncaught exception', true);
+project.set('repl', true);
 
 project.register('init', './init.js');
 project.register('router.default', './routes/index.js');
