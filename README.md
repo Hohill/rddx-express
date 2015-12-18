@@ -23,10 +23,11 @@ launch file `app.js`:
 const path = require('path');
 const project = require('rddx-express');
 
+// required options
 project.set('path', __dirname);
 project.set('port', 3000);
 
-// development mode
+// development mode options
 project.set('mod reload', true);         // enable hot reload
 project.set('uncaught exception', true); // catch uncaughtException
 project.set('repl', true);               // start a REPL
@@ -121,7 +122,7 @@ run `app.js` to start:
 $ node app.js
 ```
 
-Notes: when the **(support hot reload)** file has been changed, and `mod reload` is set to `true`, will automatically reload.
+Notes: when the **(support hot reload)** file has been changed, and option `mod reload` is set to `true`, will automatically reload it.
 
 ### Production deploy
 
