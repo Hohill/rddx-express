@@ -15,7 +15,7 @@ $ npm install rddx-express express@4.x --save
 
 ### Example files
 
-launch file `app.js`:
+Launch file `app.js`:
 
 ```javascript
 'use strict';
@@ -51,7 +51,7 @@ project.listen(err => {
 });
 ```
 
-init express file `init.js` **(support hot reload)**:
+Init express file `init.js` **(support hot reload)**:
 
 ```javascript
 'use strict';
@@ -80,7 +80,15 @@ module.exports = function (project) {
 };
 ```
 
-register routes file `routes/index.js` **(support hot reload)**:
+Notes: if you are using **babel**, you can use `export default xx` instead of `module.exports = xx`, for example:
+
+```javascript
+export default function (project) {
+  // your code here...
+}
+```
+
+Register routes file `routes/index.js` **(support hot reload)**:
 
 ```javascript
 'use strict';
@@ -101,7 +109,7 @@ module.exports = function (project, mod, router) {
 };
 ```
 
-routes handle file `routes/home.js` **(support hot reload)**:
+Routes handle file `routes/home.js` **(support hot reload)**:
 
 ```javascript
 'use strict';
@@ -119,19 +127,19 @@ exports.list = function (req, res, next) {
 
 ### Start development
 
-run `app.js` to start:
+Run `app.js` to get start:
 
 ```bash
 $ node app.js
 ```
 
-Notes: when the **(support hot reload)** file has been changed, and option `mod reload` is set to `true`, will automatically reload it.
+Notes: when the **(support hot reload)** file has been changed, and option `mod reload` is set to `true`, the file will be automatically reload.
 
-For file `init.js`, generally does not support hot reload. If you want to make some change, for example, register a new router:
+Generally file `init.js` does not support hot reload. If you want to make some change, for example, register a new router:
 
-first step, create a new file `routes/admin.js` (like above file `routes/index.js`);
+First step, create a new file `routes/admin.js` (like above file `routes/index.js`);
 
-the next, just type you register code in REPL:
+The next, just type you register code in REPL:
 
 ```javascript
 [rddx-express]> project.register('router.admin', './routes/admin.js');
@@ -141,7 +149,7 @@ Notes: in REPL, you can use variable name `$project` to access the project insta
 
 ### Production deploy
 
-delete the below lines in file `app.js`:
+Delete the below lines in file `app.js`:
 
 ```javascript
 // development mod
