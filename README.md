@@ -3,13 +3,13 @@ Express.js base project for REPL drive development
 
 ## Installation
 
-**For Node v4.0.0 or above**:
+**Only for Node v4.0.0 or above**:
 
 ```bash
 $ npm install rddx-express express@4.x --save
 ```
 
-**Notes: `rddx-express` doesn't include `express` module, so you need to install it by youself.**
+**Notes: `rddx-express` doesn't include `express` module, please install it first.**
 
 ## Usage
 
@@ -29,7 +29,7 @@ project.set('port', 3000);
 
 // development mode options
 project.set('mod reload', true);         // enable hot reload
-project.set('uncaught exception', true); // catch uncaughtException
+project.set('uncaught exception', true); // catch `uncaughtException` event
 project.set('repl', true);               // start a REPL
 
 // register module
@@ -51,7 +51,7 @@ project.listen(err => {
 });
 ```
 
-Init express file `init.js` **(support hot reload)**:
+Initialize express file `init.js` **(support hot reload)**:
 
 ```javascript
 'use strict';
@@ -125,7 +125,7 @@ exports.list = function (req, res, next) {
 };
 ```
 
-### Start development
+### Development
 
 Run `app.js` to get start:
 
@@ -133,19 +133,19 @@ Run `app.js` to get start:
 $ node app.js
 ```
 
-Notes: when the **(support hot reload)** file has been changed, and option `mod reload` is set to `true`, the file will be automatically reload.
+Notes: when the **(support hot reload)** file has been changed, and option `mod reload` is set to `true`, the file will be automatically reloaded.
 
-Generally file `init.js` does not support hot reload. If you want to make some change, for example, register a new router:
+Generally, the file `init.js` does not support hot reload. If you want to make some changes, for example, to register a new router.
 
 First step, create a new file `routes/admin.js` (like above file `routes/index.js`);
 
-The next, just type you register code in REPL:
+Next, just type your code in REPL:
 
 ```javascript
 [rddx-express]> project.register('router.admin', './routes/admin.js');
 ```
 
-Notes: in REPL, you can use variable name `$project` to access the project instance.
+Notes: in REPL, you can use variable name `$project` to access to the project instance.
 
 ### Production deploy
 
@@ -154,7 +154,7 @@ Delete the below lines in file `app.js`:
 ```javascript
 // development mod
 project.set('mod reload', true);         // enable hot reload
-project.set('uncaught exception', true); // catch uncaughtException
+project.set('uncaught exception', true); // catch `uncaughtException` event
 project.set('repl', true);               // start a REPL
 ```
 
